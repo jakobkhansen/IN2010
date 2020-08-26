@@ -1,0 +1,257 @@
+\documentclass[norsk, handout]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{color}
+\usepackage[norsk]{babel}
+\usepackage{fontspec}
+
+\newfontfamily\Emoji{Twemoji}[Renderer=HarfBuzz]
+
+\definecolor{pblue}{rgb}{0.2,0.2,0.7}
+% \definecolor{pgreen}{rgb}{0,0.5,0}
+\definecolor{pred}{rgb}{0.7,0.2,0.2}
+\definecolor{pgrey}{rgb}{0.46,0.45,0.48}
+
+\lstset{
+	language=Java,
+	numbers=left,
+	breaklines=true,
+	tabsize=4,
+	commentstyle=\color{pgrey},
+	keywordstyle=\color{pblue},
+	stringstyle=\color{pred},
+    showstringspaces=false,
+	literate={\ \ }{{\ }}1
+}
+
+%Information to be included in the title page:
+\title{IN2010 uke 1-2}
+\author{Jakob Hansen \\ \texttt{jakobkha@uio.no}}
+\date{\url{https://github.com/jakobkhansen/IN2010}}
+
+\begin{document}
+	\frame{\titlepage}
+    \begin{frame}
+        \frametitle{Dagens plan}
+        \center
+        \begin{itemize}
+            \item Bli litt kjent, corona info, gruppetimens struktur
+            \item Diskutere temaet algoritmer og datastrukturer
+                \item Big O notasjon + oppgaver
+            \item Binærsøk {\Emoji 🔎} + Evt livekode binærsøk
+            \item Trær {\Emoji 🌲} + Evt livekode binært tre
+            \item Mine tips for å lykkes i IN2010
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}
+        \begin{center}
+            \includegraphics[keepaspectratio, width=300pt, height=\paperheight]{2020-08-24-130904_918x573_scrot.png}
+        \end{center}
+    \end{frame}
+
+    \begin{frame}
+        \begin{center}
+            \includegraphics[keepaspectratio, width=300pt,
+            height=\paperheight]{2020-08-24-131452_915x573_scrot.png}
+        \end{center}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Diskusjoner}
+        \begin{itemize}
+            \item Hva er en algoritme?
+            \pause
+            \item Hva er en datastruktur?
+            \pause
+        \item Hvordan henger algoritmer og datastrukturer sammen? {\Emoji 🤝}
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}[fragile]
+        \frametitle{Big O notasjon}
+        \begin{itemize}
+            \item Hva er målet med Big O?
+            \pause
+        \item Analysere kjøretid! Hvilken algoritme er raskest? (Grovt)
+        \pause
+        \item Abstrahere bort de små forskjellene
+        \pause
+        \begin{lstlisting}[basicstyle=\scriptsize]
+            boolean numExists(int[] array, int numToFind) {
+
+                // Itererer over array, hvis vi finner tallet, true
+                for (int i = 0; i < array.length; i++) {
+                    if (array[i] == numToFind) {
+                        return true;
+                    }
+                }
+
+                // Ingen elementer er lik tallet, false
+                return false;
+            }
+		\end{lstlisting}
+        \end{itemize}
+
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Big O notasjon}
+        \includegraphics[keepaspectratio, width=300pt, height=300pt]{big-o-chart.png}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Konstant tid}
+        \begin{itemize}
+            \item O(1)
+            \item Tar samme tid uansett
+            \item Eksempel: Hente første element av et array
+            \item O(1000) = O(1)
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Lineær tid}
+
+        \begin{itemize}
+            \item O(n)
+            \item Vokser direkte med input størrelse
+            \item Eksempel: Iterere og printe ut hvert element i et array
+            \item O(100n) = O(n)
+        \end{itemize}
+
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Polynomiell tid}
+
+        \begin{itemize}
+            \item For hver n, for hver n...
+            \item O($n^x$), for eksempel O($n^2$)
+            \item Eksempel: To løkker som sjekker om det finnes en duplikat i arrayet.
+            \item Eksempel: ``Bruteforce`` en kodelås
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Logaritmisk tid}
+
+        \begin{itemize}
+            \item O(log(n))
+            \item Litt tricky
+            \item $log_2(n) = x$ hvis $2^x = n$
+            \item Antall ganger du må halvere n for å få 1
+            \item Eksempel: Lete i telefonbok, Binary search
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}[fragile]
+        \begin{center}
+            \includegraphics[width=90pt]{bigo_oppgaver1.png}
+            \includegraphics[width=90pt]{bigo_oppgave4.png}
+
+        \begin{lstlisting}[basicstyle=\scriptsize]
+                for (int i = n; i > 1; i = i/2) {
+                    System.out.println(i);
+                }
+		\end{lstlisting}
+        \end{center}
+    \end{frame}
+
+    \begin{frame}[fragile]
+        \frametitle{Søk}
+        Hvordan finne ut om et element eksisterer i en array?
+        \pause
+        \begin{lstlisting}[basicstyle=\scriptsize]
+            // Den enkle måten å sjekke om et array inneholder et tall
+            public boolean numExists(int[] array, int numToFind) {
+
+                // Itererer over array, hvis vi finner tallet, true
+                for (int i = 0; i < array.length; i++) {
+                    if (array[i] == numToFind) {
+                        return true;
+                    }
+                }
+
+                // Ingen elementer er lik tallet, false
+                return false;
+            }
+		\end{lstlisting}
+
+        \begin{itemize}
+            \item Er det mulig å gjøre dette raskere hvis arrayet er sortert?
+            \pause
+        \item Binary Search {\Emoji🤯}
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Binary Search}
+
+        \begin{itemize}
+            \item Hva vet vi om et element i et sortert array?
+            \pause
+            \item Alle elementer til venstre er mindre, alle elementer til høyre er
+                større!
+            \pause
+            \item Når vi vet dette, hvordan kan vi utnytte det?
+            \pause
+            \item Sjekk midten, eliminer halve arrayet hver gang!
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}
+        \includegraphics[width=300pt]{sortedarray.png}
+    \end{frame}
+
+
+    \begin{frame}
+        \frametitle{Trær}
+        \begin{itemize}
+            \item Datastruktur som ser ut som et opp ned tre
+            \item Består av et sett med noder, som har andre noder som barn
+            \item Noder kan ha en verdi, objekt, etc knyttet til seg
+            \item Noen regler på hva som er lov og ikke
+        \end{itemize}
+
+        \includegraphics[keepaspectratio, width=300pt]{bst.png}
+
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Binære søketrær}
+        \begin{itemize}
+            \item Binært tre med tallverdier som følger reglene til et tre
+            \item Ekstra regel!
+            \begin{itemize}
+                \item Alle noder i høyre subtre til en node må være større
+                \item Alle noder i venstre subtre til en node må være mindre
+            \end{itemize}
+            \item Bruker flere operasjoner på binære søketre
+                \begin{itemize}
+                    \item Sette inn
+                    \item Slette
+                    \item Finne et tall
+                \end{itemize}
+        \end{itemize}
+
+    \end{frame}
+
+    \begin{frame}
+        \includegraphics[width=300pt]{bst2.png}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Mine tips for å lykkes i IN2010}
+        \begin{itemize}
+            \item IN2010 er et modningsfag, sett av nok tid, jobb jevnt.
+            \item Visualisering er key, utnytt online ressurser for det.
+            \item Mål: implementer alle algoritmene som er pensum og forstå kompleksiteten
+            \item Fokuser på forståelse, ikke pugging.
+            \item Diskuter med andre, hjelp andre, få hjelp av andre.
+            \item Ekstra: Jobb med problemløsning ved siden av (Kattis osv)
+        \end{itemize}
+    \end{frame}
+
+\end{document}
+
