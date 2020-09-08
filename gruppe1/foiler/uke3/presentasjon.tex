@@ -1,0 +1,120 @@
+\documentclass[norsk, handout]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{color}
+\usepackage[norsk]{babel}
+
+\definecolor{pblue}{rgb}{0.2,0.2,0.7}
+% \definecolor{pgreen}{rgb}{0,0.5,0}
+\definecolor{pred}{rgb}{0.7,0.2,0.2}
+\definecolor{pgrey}{rgb}{0.46,0.45,0.48}
+
+\lstset{
+	language=Java,
+	numbers=left,
+	breaklines=true,
+	tabsize=4,
+	commentstyle=\color{pgrey},
+	keywordstyle=\color{pblue},
+	stringstyle=\color{pred},
+    showstringspaces=false,
+	literate={\ \ }{{\ }}1
+}
+
+%Information to be included in the title page:
+\title{IN2010 uke 3}
+\author{Jakob Hansen \\ \texttt{jakobkha@uio.no}}
+\date{\today}
+
+\begin{document}
+	\frame{\titlepage}
+    \begin{frame}
+        \frametitle{Ting vi kan snakke om i dag}
+
+        \begin{itemize}
+            \item Repetisjon
+            \item Balanserte trær
+                \begin{itemize}
+                    \item AVL trær
+                    \item Rødsvarte trær
+                \end{itemize}
+            \item Obligen
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Balanserte trær}
+        \begin{itemize}
+            \item Hva er et balansert tre?
+                \pause
+            \item Et tre der høyden er relativt lav i forhold til antall noder.
+                \pause
+            \item Hvorfor ønsker vi balanserte trær?
+                \pause
+            \item For eksempel for raskere søk og innsetting.
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{AVL trær}
+        \begin{itemize}
+            \item Selvbalanserende binært søketre
+            \item Hver node har en høydeverdi og en balanseverdi
+            \item hoyde = max(venstrenode.hoyde, hoyrenode.hoyde) + 1
+            \item hoyde(null) = -1
+            \item balanse = venstrenode.hoyde - hoyrenode.hoyde
+            \item balanse b til enhver node må være -1 $\leq$ b $\leq$ 1
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Innsetting i AVL trær}
+        \begin{itemize}
+            \item Sett inn i et AVL tre slik som et vanlig binært søketre.
+            \item Oppdater høyde på vei oppover i rekursjonsstacken, og sjekk balanse.
+            \item Hvis balansen er større enn 1 eller mindre enn -1, må vi fikse treet.
+            \item Fiks treet ved å gjøre rotasjoner i forhold til der treet er ``tyngre``
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Rotasjoner}
+        \begin{center}
+            \includegraphics[width=150px]{rotations.png}
+        \end{center}
+        \begin{center}
+            $\Downarrow$
+        \end{center}
+        \begin{center}
+            \includegraphics[width=90px]{finished_rotation.png}
+        \end{center}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Sletting i AVL trær}
+
+        \begin{itemize}
+            \item Nesten helt likt
+            \item Slett som i et vanlig binært søketre
+            \item Oppdater høyde på vei oppover i rekursjonsstacken og sjekk balanse
+            \item Hvis balansen er større enn 1 eller mindre enn -1, må vi fikse treet.
+            \item Gjør rotasjoner i forhold til der treet er ``tyngre``
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Rødsvarte trær}
+        \begin{itemize}
+            \item Ikke grundig gjennomgang!
+            \item Regler:
+                \begin{itemize}
+                    \item Alle noder er enten svarte eller røde
+                    \item Hvis en node er rød, så er barna svarte
+                    \item Alle stier fra roten til en nullpeker må inneholde like mange
+                        svarte noder
+                    \item Ekstra: Roten er svart, nullpekere teller som svarte
+                \end{itemize}
+        \end{itemize}
+    \end{frame}
+\end{document}
+
