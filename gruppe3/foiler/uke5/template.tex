@@ -1,0 +1,147 @@
+\documentclass[norsk, handout]{beamer}
+%\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{color}
+\usepackage[norsk]{babel}
+\usepackage{fontspec}
+
+
+\definecolor{pblue}{rgb}{0.2,0.2,0.7}
+% \definecolor{pgreen}{rgb}{0,0.5,0}
+\definecolor{pred}{rgb}{0.7,0.2,0.2}
+\definecolor{pgrey}{rgb}{0.46,0.45,0.48}
+
+\lstset{
+	language=Java,
+	numbers=left,
+	breaklines=true,
+	tabsize=4,
+	commentstyle=\color{pgrey},
+	keywordstyle=\color{pblue},
+	stringstyle=\color{pred},
+    showstringspaces=false,
+	literate={\ \ }{{\ }}1
+}
+
+%Information to be included in the title page:
+\title{IN2010 uke 5}
+\author{Jakob Hansen}
+\date{\today}
+
+\begin{document}
+	\frame{\titlepage}
+    \begin{frame}
+		\frametitle{Ting vi kan snakke om i dag}
+		\begin{itemize}
+			\item Repetisjon
+			\item Grafer (Masse begreper!)
+			\item Traversering av grafer
+			\item Topologisk sortering
+		\end{itemize}
+    \end{frame}
+
+	\begin{frame}
+		\frametitle{Motivasjon bak grafer}
+
+		\begin{itemize}
+			\item Hva er grafer? Hva brukes de til?
+				\pause
+			\item Veldig generalisert datatype, kan brukes til å løse utrolig mange
+				problemer, lett å representere
+			\item Korteste sti, datanettverk flyt, kritiske enheter i systemer, ...
+		\end{itemize}
+		\begin{center}
+			\includegraphics[width=200px]{rugraph.png}
+		\end{center}
+	\end{frame}
+
+	\begin{frame}{Definisjon av grafer}
+			\begin{columns}[onlytextwidth,T]
+				\column{0.45\textwidth}
+				\includegraphics[width=125px]{undirectedgraph.png}
+				\includegraphics[width=125px]{directedgraph.png}
+
+				\column{0.55\textwidth}
+				\begin{itemize}
+					\item En mengde noder og en mengde kanter (V, E)
+						\pause
+					\item Kombinasjoner av egenskaper:
+					\item Rettet, urettet
+						\pause
+					\item Vektet, uvektet
+						\pause
+					\item simpel, multigraf
+						\pause
+					\item Syklisk, asyklisk
+						\pause
+					\item Komponenter, sammenhengende
+						\pause
+					\item Stier, veier
+						\pause
+					\item Inngrad, utgrad
+				\end{itemize}
+			\end{columns}
+
+	\end{frame}
+
+	\begin{frame}{Representere grafer}
+		\begin{itemize}
+			\item Mange måter å representere grafer på, mange problemer kan representeres
+				som grafer
+			\item Nabolister
+			\item Nabomatrise
+			\item Operasjoner får forskjellig kompleksitet avhengig av representasjon
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}{Traversering av grafer}
+		\begin{itemize}
+			\item Reise fra en node til en annen gjennom kanter
+			\item Hvor mange noder kan vi nå? Er grafen sammenhengende? ...
+			\item Brukes omtrent i alle andre grafalgoritmer!
+			\item Forskjellige strategier -> DFS og BFS
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}{DFS, dybde først søk}
+		\begin{itemize}
+			\item Reis så dypt som mulig i en retning, så en annen, osv.
+			\item Kan gjøres med en vanlig stack, men enklere med rekursjonsstacken
+			\item I et tre ville man gått så dypt ned i en branch som mulig først
+			\item Enkel å implementere, bruker lite minne
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}{BFS, bredde først søk}
+		\begin{itemize}
+			\item Besøk alle noder som er 1 kant unna start, så 2, 3, ... lagvis
+			\item Reiser fra sentrum og utover i alle retninger
+			\item Bruker en kø, legg til alle noder i neste steg på køen mens du ser på
+				dette steget
+			\item I et tre, ville gått lagvis nedover i høyden
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}{Topologisk sortering}
+		\begin{columns}
+			\column{0.5\textwidth}
+			\includegraphics[width=150px]{topsort.png}
+
+			\column{0.6\textwidth}
+			\begin{footnotesize}
+			\begin{itemize}
+				\item Bruker DAG's for å representere avhengigheter
+				\item Topologisk sortering: lovlig rekkefølge av "utføring"
+					\pause
+				\item Algoritme: Legg alle noder med inngrad 0 i en kø, ta ut en node av
+					køen og fjern kantene ut fra den, repeter til grafen er tom.
+					\pause
+				\item Hvis vi har flere noder igjen, og vi ikke kan ta ut en node med
+					inngrad 0, hva betyr det?
+			\end{itemize}
+		\end{footnotesize}
+
+		\end{columns}
+	\end{frame}
+\end{document}
+
