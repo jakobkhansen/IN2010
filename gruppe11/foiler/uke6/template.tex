@@ -1,0 +1,129 @@
+\documentclass[norsk, handout]{beamer}
+%\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{color}
+\usepackage[norsk]{babel}
+\usepackage{hyperref}
+
+\definecolor{pblue}{rgb}{0.2,0.2,0.7}
+% \definecolor{pgreen}{rgb}{0,0.5,0}
+\definecolor{pred}{rgb}{0.7,0.2,0.2}
+\definecolor{pgrey}{rgb}{0.46,0.45,0.48}
+
+\lstset{
+	language=Java,
+	numbers=left,
+	breaklines=true,
+	tabsize=4,
+	commentstyle=\color{pgrey},
+	keywordstyle=\color{pblue},
+	stringstyle=\color{pred},
+    showstringspaces=false,
+	literate={\ \ }{{\ }}1
+}
+
+%Information to be included in the title page:
+\title{IN2010 uke 6}
+\author{Jakob Hansen}
+\date{\today}
+
+\begin{document}
+	\frame{\titlepage}
+	\begin{frame}
+       \frametitle{Ting vi kan snakke om i dag}
+       \begin{itemize}
+           \item Repetisjon
+		   \item Korteste sti
+			   \begin{itemize}
+				   \item Dijkstra
+				   \item Bellman-Ford
+				\end{itemize}
+		   \item Minimale spenntrær
+			   \begin{itemize}
+				   \item Prims
+				   \item Kruskals
+				   \item Boruvka
+				\end{itemize}
+       \end{itemize}
+    \end{frame}
+
+	\begin{frame}{Kort recap om grafer}
+		\begin{itemize}
+			\item Grafer er bare noder og kanter! (\{V\}, \{E\})
+			\item Rettet, urettet
+			\item Vektet, uvektet
+			\item Komponenter, sammenhengende
+		\end{itemize}
+	\end{frame}
+
+
+	\begin{frame}{Shortest path}
+		\begin{columns}
+			\column{0.5\textwidth}
+		\begin{itemize}
+			\item Veldig kjent problem innen grafteori.
+			\item Finne stien mellom 2 noder med minimal vekt.
+		\end{itemize}
+
+			\column{0.5\textwidth}
+			\includegraphics[width=150px]{shortestpathfirst.png}
+		\end{columns}
+	\end{frame}
+
+	\begin{frame}{Dijkstra}
+		\begin{itemize}
+			\item Kanskje den mest kjente grafalgoritmen
+			\item Grådig algoritme -> Fungerer ikke alltid, men rask!
+			\item Bruker en prioritetskø til å avgjøre korteste sti fra en node til alle
+				andre noder.
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}{Pseudokode og kompleksitet}
+		\includegraphics[width=250px]{dijkstrapseudo.png}
+	\end{frame}
+
+	\begin{frame}{Bellman-Ford}
+		\begin{itemize}
+			\item Enklere algoritme, som fungerer på negative vekter!
+			\item Treigere :(
+		\end{itemize}
+		\includegraphics[width=250px]{bellmanfordpseudo.png}
+	\end{frame}
+
+	\begin{frame}{Minimale spenntrær}
+		\begin{itemize}
+			\item Spenntre -> Minst antall kanter som fortsatt er en sammenhengende graf
+			\item Minimalt spenntre -> Spenntreet med minst sum av vektede kanter
+			\item Vi skal se på 3 algoritmer, alle kjører i O(|E|*log(|V|))
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}{Prims}
+		\begin{itemize}
+			\item Likner ganske på Dijkstra!
+			\item Ta den minste kanten som forbinder en ny node til spenntreet, til vi er
+				ferdig
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}{Kruskals}
+		\begin{itemize}
+			\item Bygger mange "spennskoger" og setter de sammen, helt til det bare er et
+				spenntre
+			\item Legger til den minste kanten hver gang
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}{Boruvka}
+
+	\begin{itemize}
+		\item Likner på Kruskals, bedre egnet for parallellisering
+		\item Kombinerer komponenter helt til det bare er 1.
+		\item Hver komponent velger den minste utgående kanten i hver iterasjon.
+	\end{itemize}
+
+	\end{frame}
+
+\end{document}
+
