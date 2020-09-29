@@ -1,14 +1,12 @@
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
-public class BFS {
-    public static LinkedList<Node> queue = new LinkedList<>();
-
+public class DFS {
     static class Node {
         String id;
-        boolean visited = false;
         List<Node> edges = new ArrayList<>();
+        boolean visited = false;
+
 
         public Node(String id) {
             this.id = id;
@@ -23,20 +21,13 @@ public class BFS {
         }
     }
 
-    public static void bfs(Node start) {
 
-        queue.addLast(start);
-        start.visited = true;
-
-        while (!queue.isEmpty()) {
-            Node current = queue.removeFirst();
-            System.out.println(current);
-
-            for (Node edge : current.edges) {
-                if (!edge.visited) {
-                    queue.addLast(edge);
-                    edge.visited = true;
-                }
+    public static void dfs(Node current) {
+        current.visited = true;
+        System.out.println(current.toString());
+        for (Node edge : current.edges) {
+            if (!edge.visited) {
+                dfs(edge);
             }
         }
     }
@@ -75,7 +66,6 @@ public class BFS {
 
         node7.addEdge(node6);
 
-        bfs(node0);
+        dfs(node0);
     }
-
 }

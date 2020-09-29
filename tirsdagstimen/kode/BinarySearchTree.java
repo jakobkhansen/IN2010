@@ -22,30 +22,6 @@ public class BinarySearchTree {
         }
     }
 
-    public Node find(int value) {
-        if (root == null) {
-            return null;
-        }
-
-        return findRecursive(root, value);
-    }
-
-    public Node findRecursive(Node current, int value) {
-        if (current == null) {
-            return null;
-        }
-        
-
-        if (value > current.value) {
-            return findRecursive(current.right, value);
-
-        } else if (value < current.value) {
-            return findRecursive(current.left, value);
-        }
-
-        return current;
-    }
-
     private void insertRecursive(Node current, int value) {
         if (value >= current.value) {
             if (current.right == null) {
@@ -62,6 +38,31 @@ public class BinarySearchTree {
         }
     }
 
+    public Node find(int value) {
+        if (root == null) {
+            return null;
+        }
+
+        return findRecursive(root, value);
+    }
+
+    private Node findRecursive(Node current, int value) {
+        if (current == null) {
+            return null;
+        }
+        
+
+        if (value > current.value) {
+            return findRecursive(current.right, value);
+
+        } else if (value < current.value) {
+            return findRecursive(current.left, value);
+        }
+
+        return current;
+    }
+
+
 
     public static void main(String[] args) {
         BinarySearchTree tree = new BinarySearchTree();
@@ -71,7 +72,6 @@ public class BinarySearchTree {
         tree.insert(4);
         tree.insert(2);
 
-        BTreePrinter.printNode(tree.root);
 
         System.out.println(tree.find(11));
     }

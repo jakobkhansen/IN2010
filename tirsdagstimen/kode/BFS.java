@@ -1,12 +1,14 @@
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
-public class DFS {
+public class BFS {
     static class Node {
         String id;
         List<Node> edges = new ArrayList<>();
         boolean visited = false;
 
+        // TODO representere kanter, visited
 
         public Node(String id) {
             this.id = id;
@@ -21,14 +23,20 @@ public class DFS {
         }
     }
 
+    public static void bfs(Node start) {
+        LinkedList<Node> queue = new LinkedList<>();
+        queue.add(start);
+        start.visited = true;
 
-    public static void dfs(Node current) {
-        System.out.println(current.toString());
-        current.visited = true;
+        while (!queue.isEmpty()) {
+            Node current = queue.removeFirst();
+            System.out.println(current.toString());
 
-        for (Node edge : current.edges) {
-            if (!edge.visited) {
-                dfs(edge);
+            for (Node edge : current.edges) {
+                if (!edge.visited) {
+                    queue.addLast(edge);
+                    edge.visited = true;
+                }
             }
         }
     }
@@ -67,6 +75,7 @@ public class DFS {
 
         node7.addEdge(node6);
 
-        dfs(node0);
+        bfs(node0);
     }
+
 }
