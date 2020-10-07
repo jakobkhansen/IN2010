@@ -1,0 +1,299 @@
+\documentclass[norsk]{beamer}
+%\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{color}
+\usepackage[norsk]{babel}
+
+\definecolor{pblue}{rgb}{0.2,0.2,0.7}
+% \definecolor{pgreen}{rgb}{0,0.5,0}
+\definecolor{pred}{rgb}{0.7,0.2,0.2}
+\definecolor{pgrey}{rgb}{0.46,0.45,0.48}
+
+\lstset{
+	language=Java,
+	numbers=left,
+	breaklines=true,
+	tabsize=4,
+	commentstyle=\color{pgrey},
+	keywordstyle=\color{pblue},
+	stringstyle=\color{pred},
+    showstringspaces=false,
+	literate={\ \ }{{\ }}1
+}
+
+%Information to be included in the title page:
+\title{IN2010 halvveis recap}
+\author{Jakob Hansen}
+\date{\today}
+
+\begin{document}
+	\frame{\titlepage}
+	\begin{frame}{Hva vi skal snakke om i dag}
+		\begin{itemize}
+			\item Recap av pensum til nå! :)
+		\end{itemize}
+    \end{frame}
+
+	\begin{frame}{Uke 35}
+		\begin{itemize}
+			\item Big O
+				\begin{itemize}
+					\item Analyserer kjøretid for et program.
+					\item Abstraherer bort "små" forskjeller, ser på den generelle
+						veksten.
+					\item Gjør det lettere å snakke om kjøretid og sammenlikne programmer
+				\end{itemize}
+			\item Binærsøk
+				\begin{itemize}
+					\item Algoritme som finner indeksen til et element i et sortert array
+						veldig raskt.
+					\item Se på midten, hvis elementet man ser etter er mindre, gå til
+						venstre halvdel, hvis det er større, gå til høyre halvdel.
+						Repeat.
+					\item $O(log(n))$
+				\end{itemize}
+		\end{itemize}
+		\begin{center}
+			\includegraphics[width=200px]{binarysearch.jpeg}
+		\end{center}
+	\end{frame}
+
+	\begin{frame}{Uke 35}
+			\begin{itemize}
+				\item Trær
+					\begin{itemize}
+						\item Lagrer verdier med en key som plasserer mindre keys til
+							venstre, større til høyre
+						\item Innsetting: Reis nedover treet til du finner en nullpeker.
+							Reis til venstre dersom key er mindre, høyre hvis større.
+						\item Sletting: 3 caser: 0-2 barn.
+							\begin{itemize}
+								\item 0 barn: bare fjern pekeren fra forelder
+								\item 1 barn: Erstatt noden med barnet
+								\item 2 barn: Reduser til case 0/1 ved å erstatte noden med
+									neste node i inorder traversal.
+							\end{itemize}
+					\end{itemize}
+			\end{itemize}
+
+			\begin{center}
+				\includegraphics[width=150px]{bst.png}
+			\end{center}
+	\end{frame}
+
+	\begin{frame}{Uke 36}
+		\begin{itemize}
+			\item Balanserte søketrær
+				\begin{itemize}
+					\item Balanserer seg selv, for å få en garantert kortere høyde
+					\item Da kan vi gjøre innsetting, sletting osv i $O(log(n))$ tid worst
+						case
+					\item Retter opp i treet gjennom rotasjoner
+				\end{itemize}
+			\item AVL trær
+			\item Rødsvarte trær
+		\end{itemize}
+	\end{frame}
+	\begin{frame}{Uke 36}
+		\begin{itemize}
+			\item AVL trær
+			\begin{itemize}
+				\item Høyde: max(høyre.høyde, venstre.høyde) + 1
+				\item Balanse: høyre.høyde - venstre.høyde
+				\item Balanseverdien b må være $-1 \leq b \leq 1$
+				\item Innsetting: Sett inn som vanlig, oppdater høyde og balanse på
+					tilbakeveien i rekursjonsstacken. Hvis balanseverdien ikke er
+					riktig, gjør rotasjoner i retningen av ubalansen for å fikse det!
+				\item Sletting: Slett som vanlig. Gjør det samme som innsetting på
+					tilbakeveien!
+			\end{itemize}
+
+			\begin{center}
+				\includegraphics[width=200px]{avltree.png}
+			\end{center}
+		\end{itemize}
+	\end{frame}
+	\begin{frame}{Uke 36}
+		\begin{itemize}
+			\item Rødsvarte trær
+
+			\begin{itemize}
+				\item Ganske abstrakt implementasjon
+				\item Regler:
+					\begin{itemize}
+						\item Alle noder er røde eller svarte
+						\item Hvis en node er rød, så er barna svarte
+						\item Det må være like mange svarte noder på stien fra rot til alle
+							nullpekere
+						\item Ekstra: nullpekere er sorte, roten er sort
+					\end{itemize}
+				\item Rødsvarte trær gjør færre rotasjoner enn AVL, men er litt mindre
+					balansert
+			\end{itemize}
+		\end{itemize}
+
+		\begin{center}
+			\includegraphics[width=170px]{redblack.png}
+		\end{center}
+	\end{frame}
+
+	\begin{frame}{Uke 37}
+	\begin{itemize}
+		\item Prioritetskø
+			\begin{itemize}
+				\item abstrakt datatype
+				\item Har metoder som removeMin, insert, size, osv...
+			\end{itemize}
+	\end{itemize}
+	\end{frame}
+
+	\begin{frame}{Uke 37}
+
+		\begin{itemize}
+			\item Heap (binær heap)
+				\begin{itemize}
+					\item Implementasjon av prioritetskø
+					\item MinHeap -> Barna til en node må ha større verdi
+					\item MaxHeap -> Barna til en node må ha mindre verdi
+					\item Da er alltid det minste/største elementet øverst
+					\item Innsetting: Sett inn nederst til venstre, boble opp om
+						nødvendig.
+					\item Sletting: Erstatt roten med elementet nederst til venstre,
+						boble ned om nødvendig.
+					\item Kompleksitet på innsetting og sletting: $O(log(n))$
+				\end{itemize}
+		\end{itemize}
+
+		\begin{center}
+			\includegraphics[width=200px]{heap.jpg}
+		\end{center}
+	\end{frame}
+
+	\begin{frame}{Uke 37}
+		\begin{itemize}
+			\item Huffman koding
+
+			\begin{itemize}
+				\item Mål: Gjøre ``encodingen`` av en streng så kort som mulig + uniquely
+					decodable
+				\item Løsning: La bokstavene som fremkommer oftest ha kort bit
+					representasjon.
+				\item Implementasjon: Prioritetskø med alle bokstavene der prioriteten er
+					antall forekomster. Bygg et binært tre fra bunnen og opp.
+				\item Encodingen til en bokstav: Venstre er 0, høyre er 1, reis nedover
+					treet fra roten for å finne encodingen.
+				\item Uniquely decodable: Ingen encodinger er en prefiks av en annen
+					encoding.
+			\end{itemize}
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}{Uke 37}
+		\begin{center}
+			\includegraphics[width=300px]{huffmantree.png}
+		\end{center}
+	\end{frame}
+
+	\begin{frame}{Uke 38}
+		\begin{itemize}
+			\item Grafer
+				\begin{itemize}
+					\item Noder og kanter
+					\item Rettet / urettet
+					\item Vektet / uvektet
+					\item Sammenhengende, komponenter
+				\end{itemize}
+		\end{itemize}
+			\begin{center}
+				\begin{columns}
+					\column{0.5\textwidth}
+				\includegraphics[width=150px]{rugraph.png}
+					\column{0.5\textwidth}
+				\includegraphics[width=150px]{directedgraph.png}
+			\end{columns}
+		\end{center}
+	\end{frame}
+
+	\begin{frame}{Uke 38}
+		\begin{itemize}
+			\item Traversering
+			\item DFS
+				\begin{itemize}
+					\item Gå så dypt som mulig i en retning, så prøv en annen
+					\item Bruker en stack (ofte rekursjonsstacken)
+				\end{itemize}
+			\item BFS
+				\begin{itemize}
+					\item Ta alle noder 1 kant ut fra start, så 2 kanter, 3, 4, ...
+					\item Bruker en kø (FIFO)
+				\end{itemize}
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}{Uke 39}
+		\begin{itemize}
+			\item Korteste sti
+				\begin{itemize}
+					\item Finne korteste sti (minimal vekt) mellom 2 noder (alternativt mellom alle
+						noder)
+					\item Dijkstra, Bellman-Ford
+				\end{itemize}
+			\item Minimale spenntrær
+				\begin{itemize}
+					\item Minimalt spenntre = minimal sammenhengende subgraf med minimal
+						sammenlagt kost.
+					\item Prims, Kruskals, Boruvka
+				\end{itemize}
+			\item Baserer seg alle på en liknende ide: Legg noder/kanter i en
+				prioritetskø, ta ut og gå over kanter. Får
+				kompleksitet $O(|E|*log(|V|))$ (Utenom Bellman-Ford)
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}{Uke 39}
+		\begin{itemize}
+			\item Dijkstra
+				\begin{itemize}
+					\item Lag en prioritetskø der alle noder utenom start har prioritet
+						$\infty$, start har 0. Dette kalles ``relax`` verdien.
+					\item Loop: Ta ut minste element, se på alle kanter ut, hvis
+						kantnoden er i køen, og relaxverdien til noden du tok ut + kosten
+						av kanten er mindre enn relaxverdien til kanten, oppdater
+						relaxverdien.
+				\end{itemize}
+			\item Bellman-Ford
+				\begin{itemize}
+					\item Prøv alle stier |V| - 1 kanter i lengde ut fra startnoden!
+					\item Ha en liknende prioritetskø som Dijkstra.
+					\item Gå over alle kanter i grafen |V| - 1 ganger, oppdater relax verdi.
+
+				\end{itemize}
+			\item Bruk et predecessor array/instansvariabel for å finne den
+				korteste stien
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}{Uke 39}
+		\begin{itemize}
+			\item Prims
+				\begin{itemize}
+					\item Noe likt Dijkstra, start fra en node, bygg opp et tre ved å
+						legge til den billigste kanten ut fra treet.
+				\end{itemize}
+			\item Kruskals
+				\begin{itemize}
+					\item Legg alltid til den billigste kanten!
+					\item Enkel tanke, verre å programmere
+				\end{itemize}
+			\item Boruvka
+				\begin{itemize}
+					\item Noe lik Kruskals, la hver node være en komponent.
+					\item Loop: Hver eneste komponent legger til en kant ut fra
+						komponenten. Halverer antall komponenter i hver iterasjon.
+					\item Godt egnet for parallellisering, men har samme kompleksitet!
+				\end{itemize}
+		\end{itemize}
+	\end{frame}
+
+\end{document}
+
