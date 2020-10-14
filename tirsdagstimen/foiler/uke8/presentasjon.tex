@@ -1,0 +1,159 @@
+\documentclass[norsk, handout]{beamer}
+%\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{color}
+\usepackage[norsk]{babel}
+
+\definecolor{pblue}{rgb}{0.2,0.2,0.7}
+% \definecolor{pgreen}{rgb}{0,0.5,0}
+\definecolor{pred}{rgb}{0.7,0.2,0.2}
+\definecolor{pgrey}{rgb}{0.46,0.45,0.48}
+
+\lstset{
+	language=Java,
+	numbers=left,
+	breaklines=true,
+	tabsize=4,
+	commentstyle=\color{pgrey},
+	keywordstyle=\color{pblue},
+	stringstyle=\color{pred},
+    showstringspaces=false,
+	literate={\ \ }{{\ }}1
+}
+
+%Information to be included in the title page:
+\title{IN2010 uke 8}
+\author{Jakob Hansen}
+\date{\today}
+
+\begin{document}
+	\frame{\titlepage}
+	\begin{frame}{Hva vi kan snakke om idag}
+		\begin{itemize}
+			\item Repetisjon
+			\item Noen nye begreper for grafer
+			\item Sære algoritmer
+				\begin{itemize}
+					\item Finne separasjonsnoder i en 2-sammenhengende graf (Bikonnektivitet)
+					\item Finne sterkt sammenhengende komponenter
+				\end{itemize}
+			\item Se på en større eksamensoppgave
+		\end{itemize}
+    \end{frame}
+
+	\begin{frame}{Litt nye begreper}
+		\begin{itemize}
+			\item Sammenhengende
+			\item k-sammenhengende graf og bikonnektivitet
+			\item Separasjonsnoder
+			\item Sterkt sammenhengende komponenter
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}{Finne ut om en graf er 2-sammenhengende}
+		\begin{itemize}
+			\item Er grafen fortsatt sammenhengende om en node fjernes?
+			\item Naiv algoritme: Fjern en node, sjekk om grafen fortsatt er sammenhengende -> $O(|V|*(|V| + |E|)$
+			\item Bedre algoritme "Hopcroft-Tarjan"
+				\begin{itemize}
+					\item Gjør DFS, sjekk om det er mulig å komme ``tilbake`` til grafen en annen
+						vei enn der DFS kom fra
+					\item Bruker indekser og ``low-verdier``.
+					\item $O(|V| + |E|)$
+				\end{itemize}
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}{Finne sterkt sammenhengende komponenter}
+		\begin{itemize}
+			\item A -> B, B -> A
+			\item Hvordan finne ut om det finnes en sti fra en node A til alle andre?
+				\pause
+			\item DFS
+			\item Hvordan finne ut om det finnes en sti mellom alle andre noder til A?
+				\pause
+			\item Reverser grafen og kjør DFS fra A igjen!
+			\item Alle noder som kan nås i begge retninger, er sterkt sammenhengende
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}{Tarjan's lineær tid algoritme for SCC}
+	\begin{itemize}
+		\item Kanskje et tilfelle av ``ingen skjønner hvorfor dette fungerer``
+		\item Fremgangsmåte:
+			\begin{itemize}
+				\item Kjør DFS på alle noder, legg alle noder på en stack
+				\item Reverser grafen
+				\item Kjør DFS igjen, med stack rekkefølgen.
+				\item Alle noder som kan nås hver gang man kaller på DFS den andre gangen, er i samme SCC.
+			\end{itemize}
+	\end{itemize}
+	\end{frame}
+
+	\begin{frame}{Eksamensoppgave}
+		\begin{center}
+			\includegraphics[width=275px]{eksamenintro.png}
+		\end{center}
+	\end{frame}
+
+	\begin{frame}{Eksempelgraf}
+		\begin{center}
+			\includegraphics[width=275px]{eksempelgraf.png}
+		\end{center}
+	\end{frame}
+
+	\begin{frame}{2a}
+		\begin{center}
+			\includegraphics[width=250px]{2a.png}
+		\end{center}
+	\end{frame}
+
+	\begin{frame}{2b}
+		\begin{center}
+			\includegraphics[width=275px]{2b.png}
+		\end{center}
+	\end{frame}
+
+	\begin{frame}{2c}
+		\begin{center}
+			\includegraphics[width=275px]{2c.png}
+		\end{center}
+	\end{frame}
+
+	\begin{frame}{2d}
+		\begin{center}
+			\includegraphics[width=275px]{2d.png}
+		\end{center}
+	\end{frame}
+
+	\begin{frame}{2e}
+		\begin{center}
+			\includegraphics[width=275px]{2e.png}
+		\end{center}
+	\end{frame}
+
+	\begin{frame}{2f}
+		\begin{center}
+			\includegraphics[width=250px]{2f.png}
+		\end{center}
+	\end{frame}
+
+	\begin{frame}{2g}
+		\begin{center}
+			\includegraphics[width=275px]{2g.png}
+		\end{center}
+	\end{frame}
+
+	\begin{frame}{2h}
+		\begin{center}
+			\includegraphics[width=275px]{2h.png}
+		\end{center}
+	\end{frame}
+
+	\begin{frame}{2i}
+		\begin{center}
+			\includegraphics[width=275px]{2i.png}
+		\end{center}
+	\end{frame}
+\end{document}
+
