@@ -1,0 +1,142 @@
+\documentclass[norsk, handout]{beamer}
+%\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{color}
+\usepackage[norsk]{babel}
+
+
+\definecolor{pblue}{rgb}{0.2,0.2,0.7}
+% \definecolor{pgreen}{rgb}{0,0.5,0}
+\definecolor{pred}{rgb}{0.7,0.2,0.2}
+\definecolor{pgrey}{rgb}{0.46,0.45,0.48}
+\lstset{
+	language=Java,
+	numbers=left,
+	breaklines=true,
+	tabsize=4,
+	commentstyle=\color{pgrey},
+	keywordstyle=\color{pblue},
+	stringstyle=\color{pred},
+    showstringspaces=false,
+	literate={\ \ }{{\ }}1
+}
+
+%Information to be included in the title page:
+\title{IN2010 uke 9}
+\author{Jakob Hansen}
+\date{\today}
+
+\begin{document}
+	\frame{\titlepage}
+    \begin{frame}{Hva vi skal snakke om idag}
+      \begin{itemize}
+          \item Repetisjon?
+          \item Se litt på forrige oblig?
+          \item Masse sortering
+            \begin{itemize}
+              \item Litt nye begreper
+              \item Selection sort
+              \item Insertion sort
+              \item Bubble sort
+              \item Heap sort
+
+            \end{itemize}
+      \end{itemize}
+    \end{frame}
+
+
+    \begin{frame}{Obligen}
+      \begin{center}
+        \includegraphics[width=300px]{obligexample.png}
+      \end{center}
+    \end{frame}
+    \begin{frame}{Begreper}
+      \begin{itemize}
+          \item Sortering
+          \item Stabil sorteringsalgoritme
+          \item ``inplace`` sorteringsalgoritme
+      \end{itemize}
+    \end{frame}
+
+    \begin{frame}{Selection sort}
+      \begin{center}
+        \includegraphics[width=300px]{selectionsort.png} 
+      \end{center}
+      \begin{itemize}
+          \item Finn minste element, plasser det først.
+          \item Ytre loop: Hvor minste element skal plasseres
+          \item Indre loop: Finner det minste elementet
+          \item Kompleksitet? \pause -> $O(n^2)$
+      \end{itemize}
+    \end{frame}
+
+    \begin{frame}{Insertion sort}
+
+      \begin{center}
+        \includegraphics[width=300px]{insertionsort.png} 
+      \end{center}
+      \begin{itemize}
+          \item Definer en sortert del, i starten bare elementet lengst til venstre
+          \item Øk den sorterte delen med 1 element ved å ``skyve`` et element inn i den 
+            sorterte delen.
+          \item Kompleksitet? \pause -> $O(n^2)$
+      \end{itemize}
+    \end{frame}
+
+    \begin{frame}{Bubble sort}
+      \begin{center}
+        \includegraphics[width=300px]{bubblesort.png} 
+      \end{center}
+      \begin{itemize}
+          \item Loop over alle elementer, se på hvert par av elementer, hvis de ikke er 
+            sortert, bytt plass
+          \item Iterer over arrayet slik n ganger
+          \item Gir effekten at hver iterasjon flytter det største elementet bakerst
+          \item Kompleksitet? \pause -> $O(n^2)$
+      \end{itemize}
+    \end{frame}
+
+    \begin{frame}{Heap sort}
+      \begin{center}
+        \includegraphics[width=300px]{heapsort.png} 
+      \end{center}
+      \begin{itemize}
+          \item Se på arrayet som skal sorteres som en binærheap
+          \item Gjør om arrayet til en maxheap ved å boble ``alle`` elementer ned.
+          \item Ta ut rota (det største elementet) av heapen, sett det bakerst.
+          \item Mink heapen med 1 størrelse (ignorer det elementet vi akkurat plasserte bakerst)
+          \item Kompleksitet? \pause -> $O(n*log(n))$
+      \end{itemize}
+    \end{frame}
+
+    \begin{frame}{Hvilken algoritme?}
+      \begin{center} 
+
+        \includegraphics[width=300px]{myheapsort.png}
+        \pause
+        Heap sort
+
+        \vspace{0.6cm}
+
+        \pause
+        \includegraphics[width=300px]{myselectionsort.png}
+        \pause
+        Selection sort
+
+        \vspace{0.6cm}
+
+        \pause
+        \includegraphics[width=300px]{myinsertionsort.png}
+        \pause
+        Insertion sort
+
+        \vspace{0.6cm}
+
+        \pause
+        \includegraphics[width=300px]{mybubblesort.png}
+        \pause
+        Bubble sort
+      \end{center}
+    \end{frame}
+\end{document}
+
