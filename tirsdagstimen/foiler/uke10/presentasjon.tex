@@ -1,0 +1,117 @@
+\documentclass[norsk, handout]{beamer}
+%\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{color}
+\usepackage[norsk]{babel}
+
+
+
+
+\definecolor{pblue}{rgb}{0.2,0.2,0.7}
+% \definecolor{pgreen}{rgb}{0,0.5,0}
+\definecolor{pred}{rgb}{0.7,0.2,0.2}
+\definecolor{pgrey}{rgb}{0.46,0.45,0.48}
+
+\lstset{
+	language=Java,
+	numbers=left,
+	breaklines=true,
+	tabsize=4,
+	commentstyle=\color{pgrey},
+	keywordstyle=\color{pblue},
+	stringstyle=\color{pred},
+    showstringspaces=false,
+	literate={\ \ }{{\ }}1
+}
+
+%Information to be included in the title page:
+\title{IN2010 uke 10}
+\author{Jakob Hansen}
+\date{\today}
+
+\begin{document}
+	\frame{\titlepage}
+    \begin{frame}{Hva vi skal gjøre idag}
+        \begin{itemize}
+            \item Repetisjon?
+            \item Mer (og vanskeligere) sortering!
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}{En liten rettelse/oppgave fra forrige gang}
+        \begin{itemize}
+            \item Hva var stabilitet i sortering?
+            \pause
+            \item Er selection sort stabil? \pause -> Nei!
+            \item $[2,3,2,1]$
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}{Merge sort}
+        \begin{itemize}
+            \item Tankegang: Rekursivt sorter hver halvdel, sett delene sammen
+                \pause
+                \begin{center}
+                    \includegraphics[width=175px]{mergesort.png} 
+                \end{center}
+            \item Kompleksitet? \pause -> $O(n*log(n))$
+            \item Stabilitet? \pause -> Ja!
+            \item Inplace? \pause -> Nei, hvertfall for den vanligste implementasjon
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}{Quick sort}
+        \begin{itemize}
+            \item Tankegang: Velg ut et pivotelement, så nærme medianen av arrayet som mulig.
+                Plasser alle elementer mindre enn pivot til venstre, alle større til høyre.
+                Gjør dette rekursivt for venstre og høyre halvdel.
+                \pause
+                \begin{center}
+                    \includegraphics[width=175px]{quicksort.png} 
+                \end{center}
+            \item Kompleksitet? \pause -> worstcase $O(n^2)$, men average case $O(n*log(n))$
+            \item Stabilitet? \pause -> Nei
+            \item Inplace? \pause -> Ja!
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}{Bucket sort}
+        \begin{itemize}
+            \item Tankegang: Putt alle elementer i bøtter, sorter (om nødvendig) og sett sammen.
+            \item Implementasjonen avhenger av problemet
+            \item Veldig rask hvis vi har en viss informasjon om hva vi sorterer (range på nøkler
+                for eksempel)
+            \item Utnytter ofte andre sorteringsalgoritmer for å sortere innad i bøttene
+            \item Ikke comparisonbasert! (hvertfall den klassiske implementasjon)
+            \item Kompleksitet? \pause -> Hvis vi ikke sorterer: $O(n)$, hvis vi må sortere:
+                Kompleksiteten til sorteringsalgoritmen
+            \item Stabilitet? \pause Ja, sålenge sorteringsalgoritmen er stabil
+            \item Inplace? \pause Nei
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}{Radix sort}
+        \begin{itemize}
+            \item Leksikografisk sortering. Kan også beskrives som kategorisk sortering.
+            \item For tall: sorter først på 1'er plassen, så 10'er plassen, så 100'er plassen...
+            \item Her kan vi utnytte bucket sort!
+            \item Siden vi sorterer etter ett og ett tall, kan vi ha 10 bøtter, 0-9
+            \item Kompleksitet? \pause -> O(n*d) der d er maksimalt antall siffer
+            \item Stabilitet? \pause Virker kanskje ikke sånn, men ja!
+            \item Inplace? \pause Nja, bruker jo bucket sort, så nei
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}{En liten digresjon utenfor pensum -> Timsort}
+        \begin{itemize}
+            \item Timsort er designet for å brukes i virkeligheten
+            \item Er standard sorteringsalgoritmen i blant annet Java, Python, JS, Rust ...
+            \item Analyserer arrayet for å finne ut hvilken approach som er best
+            \item Under 64 elementer -> Insertion sort
+            \item Over 64 elementer -> En variant av mergesort (+ binærsøk!)
+            \item Gjør mye lurt for å bruke mindre minne, samt utnytte naturlige mønstre
+            \item Kompleksitet? \pause -> worst case $O(n*log(n))$, best case $O(n)$
+        \end{itemize}
+    \end{frame}
+\end{document}
+
